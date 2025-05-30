@@ -242,6 +242,40 @@ The API will be available at `http://127.0.0.1:8000/`
 
 ---
 
+### 💳 About Payment Simulation
+
+Since the project doesn't integrate with real payment gateways (like Stripe or PayPal), payments are simulated for learning/demo purposes.
+
+#### Workflow:
+
+1. **User places an order** → `POST /orders/`
+   (Cart items converted into order items)
+
+2. **User pays for order** → `POST /orders/{order_id}/pay/`
+   (Backend marks `is_paid=True` and timestamps with `paid_at`)
+
+> 💡 You can later plug in real payment gateways by modifying `PayOrderView` to trigger an API call to Stripe/Flutterwave/etc.
+
+---
+
+### 💡 Bonus Suggestions to Include
+
+* **Environment Variables:**
+  Consider using `python-decouple` or `.env` file to manage your `SECRET_KEY`, `DEBUG`, and `DATABASE_URL` securely.
+
+* **Production Tips:**
+
+  * Switch from SQLite to PostgreSQL
+  * Set `DEBUG=False`
+  * Use `gunicorn` + `nginx` for deployment
+  * Serve media via S3 or CDN
+
+* **API Docs Tooling (optional):**
+
+  * Install `drf-yasg` or `drf-spectacular` to auto-generate Swagger/OpenAPI docs
+
+---
+
 ## Additional Notes
 
 * Make sure to include the JWT `Authorization: Bearer <access_token>` header for authenticated endpoints.
